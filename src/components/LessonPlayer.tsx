@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Lesson, CourseModule } from "@/data/course";
+import type { Lesson, CourseModule } from "@/data/course";
 import { useLessonProgress } from "@/hooks/useLessonProgress";
 import { CompletedBadge } from "./ProgressBadge";
 
@@ -288,4 +288,3 @@ export function LessonPlayer({
     </div>
   );
 }
-
