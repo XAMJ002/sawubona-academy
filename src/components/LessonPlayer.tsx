@@ -123,3 +123,169 @@ export function LessonPlayer({
             </svg>
             Reflection Questions
           </h2>
+          <p className="text-sage-600 text-sm mb-4">
+            Take a moment to consider these questions. There are no right or
+            wrong answers.
+          </p>
+          <ol className="space-y-3">
+            {lesson.reflectionQuestions.map((question, index) => (
+              <li key={index} className="flex gap-3">
+                <span className="flex-shrink-0 w-6 h-6 bg-terracotta-500 text-white rounded-full flex items-center justify-center text-sm font-medium">
+                  {index + 1}
+                </span>
+                <span className="text-gray-700">{question}</span>
+              </li>
+            ))}
+          </ol>
+        </section>
+      )}
+
+      {/* Downloads */}
+      {lesson.downloads.length > 0 && (
+        <section className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+            <svg
+              className="w-6 h-6 text-forest-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              />
+            </svg>
+            Downloads
+          </h2>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {lesson.downloads.map((download, index) => (
+              <a
+                key={index}
+                href={download.href}
+                className="flex items-center gap-3 p-4 bg-white border border-sage-200 rounded-lg hover:border-forest-600 hover:shadow-sm transition-all group"
+              >
+                <span className="text-2xl">
+                  {download.href.endsWith(".pdf") ? "📄" : "📝"}
+                </span>
+                <span className="text-gray-700 group-hover:text-forest-600">
+                  {download.label}
+                </span>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Mark Complete Button */}
+      <section className="mb-8 pt-6 border-t border-sage-200">
+        {completed ? (
+          <div className="flex items-center gap-3 p-4 bg-forest-600/10 rounded-xl">
+            <svg
+              className="w-6 h-6 text-forest-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span className="text-forest-600 font-medium">
+              You&apos;ve completed this lesson
+            </span>
+          </div>
+        ) : (
+          <button
+            onClick={handleMarkComplete}
+            className="w-full py-4 px-6 bg-forest-600 text-white rounded-xl font-semibold text-lg hover:bg-forest-700 transition-colors"
+          >
+            Mark Lesson Complete
+          </button>
+        )}
+      </section>
+
+      {/* Navigation */}
+      <nav className="flex items-center justify-between gap-4 pt-6 border-t border-sage-200">
+        {previousLesson ? (
+          <Link
+            href={`/course/${previousLesson.moduleSlug}/${previousLesson.lessonSlug}`}
+            className="flex items-center gap-2 text-sage-600 hover:text-forest-600 transition-colors"
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+            <span className="hidden sm:inline">Previous:</span>
+            <span className="font-medium truncate max-w-[150px] sm:max-w-none">
+              {previousLesson.title}
+            </span>
+          </Link>
+        ) : (
+          <div />
+        )}
+
+        <Link
+          href="/course"
+          className="text-sage-600 hover:text-forest-600 transition-colors text-center"
+        >
+          <svg
+            className="w-5 h-5 mx-auto mb-1"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 6h16M4 10h16M4 14h16M4 18h16"
+            />
+          </svg>
+          <span className="text-sm">Overview</span>
+        </Link>
+
+        {nextLesson ? (
+          <Link
+            href={`/course/${nextLesson.moduleSlug}/${nextLesson.lessonSlug}`}
+            className="flex items-center gap-2 text-sage-600 hover:text-forest-600 transition-colors"
+          >
+            <span className="font-medium truncate max-w-[150px] sm:max-w-none">
+              {nextLesson.title}
+            </span>
+            <span className="hidden sm:inline">:Next</span>
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </Link>
+        ) : (
+          <div />
+        )}
+      </nav>
+    </div>
+  );
+}
+
