@@ -3,13 +3,16 @@
 import { Layout } from "@/components/Layout";
 import { ModuleList } from "@/components/ModuleList";
 import { ProgressBadge } from "@/components/ProgressBadge";
-import { course, getAllLessons } from "@/data/course";
+import { course, getModules } from "@/data/course";
 import { useLessonProgress } from "@/hooks/useLessonProgress";
 
 export default function CoursePage() {
   const { getCompletedCount, isLoaded } = useLessonProgress();
-  const allLessons = getAllLessons();
-  const totalLessons = allLessons.length;
+  const modules = getModules();
+  const totalLessons = modules.reduce(
+    (sum, m) => sum + m.lessons.length,
+    0
+  );
   const completedCount = isLoaded ? getCompletedCount() : 0;
 
   return (
@@ -33,7 +36,7 @@ export default function CoursePage() {
                     Your Progress
                   </h2>
                   <p className="text-sage-600 text-sm">
-                    {course.modules.length} modules • {totalLessons} total lessons
+                    {modules.length} modules • {totalLessons} total lessons
                   </p>
                 </div>
                 <div className="sm:w-64">
@@ -47,26 +50,28 @@ export default function CoursePage() {
                   )}
                 </div>
               </div>
-              {isLoaded && completedCount === totalLessons && totalLessons > 0 && (
-                <div className="mt-4 p-4 bg-forest-600/10 rounded-lg">
-                  <p className="text-forest-600 font-medium flex items-center gap-2">
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                    Congratulations! You&apos;ve completed the entire course.
-                  </p>
-                </div>
-              )}
+              {isLoaded &&
+                completedCount === totalLessons &&
+                totalLessons > 0 && (
+                  <div className="mt-4 p-4 bg-forest-600/10 rounded-lg">
+                    <p className="text-forest-600 font-medium flex items-center gap-2">
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                      Congratulations! You&apos;ve completed the entire course.
+                    </p>
+                  </div>
+                )}
             </div>
           </header>
 
@@ -75,7 +80,7 @@ export default function CoursePage() {
             <h2 className="text-2xl font-bold text-gray-800 mb-6">
               Course Modules
             </h2>
-            <ModuleList modules={course.modules} />
+            <ModuleList modules={modules} />
           </section>
         </div>
       </div>
