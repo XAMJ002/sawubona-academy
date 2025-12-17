@@ -1091,7 +1091,7 @@ export function getAllLessons(): Lesson[] {
 }
 
 export function getLessonBySlug(moduleSlug: string, lessonSlug: string): Lesson | undefined {
-  const mod = = course.modules.find((m) => m.slug === moduleSlug);
+  const mod = course.modules.find((m) => m.slug === moduleSlug);
   if (!mod) return undefined;
   return mod.lessons.find((l) => l.lessonSlug === lessonSlug);
 }
