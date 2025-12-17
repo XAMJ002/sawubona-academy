@@ -19,8 +19,8 @@ interface LessonPageProps {
 export function generateStaticParams() {
   const params: { moduleSlug: string; lessonSlug: string }[] = [];
 
-  course.modules.forEach((module) => {
-    courseModule.lessons.forEach((lesson) => {
+  course.modules.forEach((mod) => {
+    mod.lessons.forEach((lesson) => {
       params.push({
         moduleSlug: lesson.moduleSlug,
         lessonSlug: lesson.lessonSlug,
