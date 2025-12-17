@@ -1087,13 +1087,13 @@ Sawubona—I see you. Now go be seen, and help others be seen too.`,
 
 // Helper functions to navigate course content
 export function getAllLessons(): Lesson[] {
-  return course.modules.flatMap((module) => module.lessons);
+  return course.modules.flatMap((m) => m.lessons;
 }
 
 export function getLessonBySlug(moduleSlug: string, lessonSlug: string): Lesson | undefined {
-  const module = course.modules.find((m) => m.slug === moduleSlug);
-  if (!module) return undefined;
-  return module.lessons.find((l) => l.lessonSlug === lessonSlug);
+  const mod = = course.modules.find((m) => m.slug === moduleSlug);
+  if (!mod) return undefined;
+  return mod.lessons.find((l) => l.lessonSlug === lessonSlug);
 }
 
 export function getModuleBySlug(moduleSlug: string): Module | undefined {
