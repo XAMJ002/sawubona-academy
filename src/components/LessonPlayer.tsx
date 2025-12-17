@@ -40,7 +40,7 @@ export function LessonPlayer({
           </li>
           <li>
             <Link
-              href={`/course/${module.slug}/${module.lessons[0].lessonSlug}`}
+              href={`/course/${module.moduleSlug}/${module.lessons[0].lessonSlug}`}
               className="hover:text-forest-600"
             >
               {module.title}
