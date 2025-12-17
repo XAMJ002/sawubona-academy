@@ -172,7 +172,7 @@ export const course: Course = {
         },
       ],
     },
-    // You can keep stubbing modules 3–6 in a similar pattern
+    // Modules 3–6 can be added later
   ],
 }
 
