@@ -5,7 +5,6 @@ import { LessonPlayer } from "@/components/LessonPlayer";
 import {
   getLessonBySlugs,
   getModuleBySlug,
-  course,
 } from "@/data/course";
 
 type LessonPageProps = {
@@ -25,10 +24,8 @@ export default function LessonPage({ params }: LessonPageProps) {
 
   return (
     <LessonPlayer
-      courseTitle={course.title}
       module={module}
       lesson={lesson}
-      // For now, we are not rendering previous/next lesson links.
       previousLesson={null}
       nextLesson={null}
     />
