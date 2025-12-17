@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { Lesson, Module } from "@/data/course";
+import { Lesson, CourseModule } from "@/data/course";
 import { useLessonProgress } from "@/hooks/useLessonProgress";
 import { CompletedBadge } from "./ProgressBadge";
 
 interface LessonPlayerProps {
   lesson: Lesson;
-  module: Module;
+  module: CourseModule;
   previousLesson: Lesson | null;
   nextLesson: Lesson | null;
 }
