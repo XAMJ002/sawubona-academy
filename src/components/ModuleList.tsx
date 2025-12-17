@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { Module } from "@/data/course";
+import type { CourseModule } from "@/data/course";
 import { useLessonProgress } from "@/hooks/useLessonProgress";
 import { CompletedBadge } from "./ProgressBadge";
 
 interface ModuleListProps {
-  modules: Module[];
+  modules: CourseModule[];
 }
 
 export function ModuleList({ modules }: ModuleListProps) {
@@ -15,11 +15,12 @@ export function ModuleList({ modules }: ModuleListProps) {
   return (
     <div className="space-y-6">
       {modules.map((module, index) => {
-        const completedLessons = module.lessons.filter((l) => 
-          isLoaded && isCompleted(l.id)
+        const completedLessons = module.lessons.filter(
+          (l) => isLoaded && isCompleted(l.id)
         ).length;
         const totalLessons = module.lessons.length;
-        const isModuleComplete = completedLessons === totalLessons && totalLessons > 0;
+        const isModuleComplete =
+          completedLessons === totalLessons && totalLessons > 0;
 
         return (
           <div
@@ -41,12 +42,10 @@ export function ModuleList({ modules }: ModuleListProps) {
               </div>
 
               {/* Module Description */}
-              <p className="text-gray-600 mb-4 ml-13">
-                {module.description}
-              </p>
+              <p className="text-gray-600 mb-4 ml-13">{module.description}</p>
 
               {/* Progress */}
-              {isLoaded && (
+              {isLoaded && totalLessons > 0 && (
                 <div className="ml-13 mb-4">
                   <div className="flex items-center gap-3">
                     <div className="flex-1 h-2 bg-sage-100 rounded-full overflow-hidden max-w-xs">
@@ -112,27 +111,29 @@ export function ModuleList({ modules }: ModuleListProps) {
               </div>
 
               {/* Start/Continue Button */}
-              <div className="ml-13 mt-4">
-                <Link
-                  href={`/course/${module.lessons[0].moduleSlug}/${module.lessons[0].lessonSlug}`}
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-forest-600 text-white rounded-lg hover:bg-forest-700 transition-colors"
-                >
-                  {completedLessons > 0 ? "Continue Module" : "Start Module"}
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+              {module.lessons[0] && (
+                <div className="ml-13 mt-4">
+                  <Link
+                    href={`/course/${module.lessons[0].moduleSlug}/${module.lessons[0].lessonSlug}`}
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-forest-600 text-white rounded-lg hover:bg-forest-700 transition-colors"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </Link>
-              </div>
+                    {completedLessons > 0 ? "Continue Module" : "Start Module"}
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         );
