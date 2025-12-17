@@ -20,7 +20,7 @@ export function generateStaticParams() {
   const params: { moduleSlug: string; lessonSlug: string }[] = [];
 
   course.modules.forEach((module) => {
-    module.lessons.forEach((lesson) => {
+    courseModule.lessons.forEach((lesson) => {
       params.push({
         moduleSlug: lesson.moduleSlug,
         lessonSlug: lesson.lessonSlug,
@@ -34,25 +34,25 @@ export function generateStaticParams() {
 // Generate metadata for the page
 export function generateMetadata({ params }: LessonPageProps) {
   const lesson = getLessonBySlug(params.moduleSlug, params.lessonSlug);
-  const module = getModuleBySlug(params.moduleSlug);
+  const courseModule = getModuleBySlug(params.moduleSlug);
 
-  if (!lesson || !module) {
+  if (!lesson || !courseModule) {
     return {
       title: "Lesson Not Found | Sawubona Academy",
     };
   }
 
   return {
-    title: `${lesson.title} | ${module.title} | Sawubona Academy`,
+    title: `${lesson.title} | ${courseModule.title} | Sawubona Academy`,
     description: lesson.summary,
   };
 }
 
 export default function LessonPage({ params }: LessonPageProps) {
   const lesson = getLessonBySlug(params.moduleSlug, params.lessonSlug);
-  const module = getModuleBySlug(params.moduleSlug);
+  const courseModule = getModuleBySlug(params.moduleSlug);
 
-  if (!lesson || !module) {
+  if (!lesson || !courseModule) {
     notFound();
   }
 
@@ -64,7 +64,7 @@ export default function LessonPage({ params }: LessonPageProps) {
         <div className="max-w-5xl mx-auto px-4">
           <LessonPlayer
             lesson={lesson}
-            module={module}
+            module={courseModule}
             previousLesson={previous}
             nextLesson={next}
           />
