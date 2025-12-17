@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-assign-module-variable */
-
 // src/data/course.ts
 
 export type Lesson = {
