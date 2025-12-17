@@ -2,10 +2,7 @@
 
 import { notFound } from "next/navigation";
 import { LessonPlayer } from "@/components/LessonPlayer";
-import {
-  getLessonBySlugs,
-  getModuleBySlug,
-} from "@/data/course";
+import { getLessonBySlugs, getModuleBySlug } from "@/data/course";
 
 type LessonPageProps = {
   params: {
